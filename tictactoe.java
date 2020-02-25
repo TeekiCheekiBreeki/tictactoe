@@ -10,26 +10,26 @@ public class TicTacToe {
     static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
 
     public static void main(String[] args) {
-
+//make new game board
       char[][] gameBoard ={{' ','|',' ','|',' '},
                           {'-','+','-','+','-'},
                           {' ','|',' ','|',' '},
                           {'-','+','-','+','-'},
                           {' ','|',' ','|',' '}};
 
-    printGameBoard(gameBoard);
+    printGameBoard(gameBoard);//print current status of board
 
-
+//loop, so that game continues(not just 1 input)
     while(true){
       Scanner scan = new Scanner(System.in);
       System.out.println("Enter your placement (1-9)");
       int playerPosition = scan.nextInt();
-
+//check if position is already taken, so it doesnt overwrite it
       while(playerPositions.contains(playerPosition) || cpuPositions.contains(playerPositions)){
         System.out.println("Position taken! Enter valid position");
         playerPosition = scan.nextInt();
       }
-
+//places piece on board
       placePiece(gameBoard, playerPosition, "player");
       String result = checkWinner();
       if(result.length()>0){
@@ -37,7 +37,7 @@ public class TicTacToe {
       break;
       }
 
-
+//cpu, same while loop to check if position is taken, and then method placePiece to place the piece
       Random random = new Random();
       int cpuPos = random.nextInt(9) + 1;
 
@@ -45,9 +45,9 @@ public class TicTacToe {
         cpuPos = random.nextInt(9) + 1;
       }
       placePiece(gameBoard, cpuPos, "cpu");
-
+//update the board
       printGameBoard(gameBoard);
-
+//after updating board, check if there is any winner. If theres a winner, calls method checkWinner and ends the game
       result = checkWinner();
         if(result.length()>0){
         System.out.println(result);
@@ -57,7 +57,7 @@ public class TicTacToe {
 
 
   }
-
+//method to print the board
     public static void printGameBoard(char[][] gameBoard) {
       for(char[] row : gameBoard){
         for(char c : row){
@@ -66,6 +66,7 @@ public class TicTacToe {
         System.out.println();
       }
     }
+    //method to place the piece on position. We divide it on 2 users, cpu and player(prints x if player and o if cpu). then go to switch
     public static void placePiece(char[][] gameBoard, int position, String user){
       char symbol = ' ';
       if(user.equals("player")){
@@ -107,6 +108,8 @@ public class TicTacToe {
           break;
       }
     }
+    //method to see who wins. We need winning conditions, which are if u have 3 in row, 3 diagonal or 3 in column. Make another list of lists and add all lists to
+    //then check if player has win condition or not
     public static String checkWinner(){
       List topRow = Arrays.asList(1, 2, 3);
       List midRow = Arrays.asList(4, 5, 6);
